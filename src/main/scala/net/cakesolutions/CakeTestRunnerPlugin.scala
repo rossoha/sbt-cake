@@ -47,7 +47,8 @@ object CakeTestRunnerPlugin extends AutoPlugin {
     healthCheckIntervalInSeconds := 5,
     healthCheckRetryCount := 5,
     integrationTests := integrationTestsTask.value,
-    performanceTests := performanceTestsTask.value
+    performanceTests := performanceTestsTask.value,
+    healthCheckWait := healthCheck.value
   )
 
   private def runIntegrationTests: Def.Initialize[Task[Unit]] = Def.taskDyn {
@@ -83,7 +84,7 @@ object CakeTestRunnerPlugin extends AutoPlugin {
     Def.sequential(
       checkDockerComposeVersion,
       dockerComposeUp,
-      healthCheck,
+      healthCheckWait,
       Def.taskDyn {
         testTask.doFinally {
           cleanStop.taskValue
@@ -157,6 +158,12 @@ object CakeTestRunnerKeys {
     */
   val performanceTests: TaskKey[Unit] =
     taskKey[Unit]("Runs performance tests with docker fleet management")
+
+  /**
+    * Task that waits until all docker services report healthy
+    */
+  val healthCheckWait: TaskKey[Unit] =
+    taskKey[Unit]("Wait until docker services report healthy")
 
   /**
     * Retries count for health check in docker-compose scope

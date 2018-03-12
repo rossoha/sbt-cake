@@ -328,6 +328,7 @@ all containers reach to the healthy status
 The following SBT tasks are enabled:
 * `integrationTests` - runs integration tests within all docker operations and steps
 * `performanceTests` - runs performance tests within all docker operations and steps 
+* `healthCheckWait` - wait until docker services report healthy
 
 ## `CakePublishMavenPlugin`: Artifact Publishing
 
