@@ -3,6 +3,8 @@
 
 package net.cakesolutions
 
+import scala.annotation.tailrec
+
 import io.gatling.sbt.GatlingKeys.GatlingIt
 import sbt.Keys._
 import sbt._
@@ -112,6 +114,7 @@ object CakeTestRunnerPlugin extends AutoPlugin {
 
     import scala.concurrent.duration._
 
+    @tailrec
     def check(rc: Int): Boolean = {
       val healthy =
         checkHealth(CakeDockerComposeKeys.dockerComposeFiles.value)(
