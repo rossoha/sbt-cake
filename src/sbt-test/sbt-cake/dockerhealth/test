@@ -30,5 +30,17 @@ $ exec echo "- expect test to pass"
 #$ exists target/docker/docker_dockerhealth_1.log
 
 > dockerComposeDown
-
 > dockerRemove
+
+> dockerComposeUp
+
+$ exec echo "TEST: health check wait - containers launched"
+> dockerComposeUp
+
+$ exec echo "TEST: wait for docker health checks to respond healthy"
+> healthCheckWait
+> checkContainersHealth
+
+> dockerComposeDown
+> dockerRemove
+

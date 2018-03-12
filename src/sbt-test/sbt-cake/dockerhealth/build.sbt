@@ -10,7 +10,8 @@ val dockerhealth = (project in file("."))
   .enablePlugins(
     AshScriptPlugin,
     CakeDockerPlugin,
-    CakeDockerHealthPlugin)
+    CakeDockerHealthPlugin,
+    CakeTestRunnerPlugin)
   .settings(
     libraryDependencies ++= Seq(
       Akka.Http.base,
